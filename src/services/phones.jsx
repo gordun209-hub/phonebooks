@@ -1,14 +1,23 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/phones'
+
+const baseUrl = '/api/persons'
 
 const getAll = () => {
-	const request = axios.get(baseUrl)
-	return request.then(res => res.data)
+    const request = axios.get(baseUrl)
+
+    return request.then(res => res.data)
 }
+
+
+const remove = (id) => {
+    return axios.delete(`${baseUrl}/${id}`);
+};
+
 
 const create = newObject => {
-	const request = axios.post(baseUrl, newObject)
-	return request.then(res => res.data)
+    const request = axios.post(baseUrl, newObject)
+    console.log(request)
+    return request.then(res => res.data)
 }
 
-export default { getAll, create }
+export default {getAll, remove, create}
