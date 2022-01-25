@@ -19,7 +19,7 @@ const App = () => {
             name: newName
         }
         hasAlreadyHave
-            ? alert('pattern war?')
+            ? alert('zatern war?')
             : noteServices.create(newPerson).then(res => {
                 setPersons(persons.concat(res))
                 setNewName('')
@@ -45,22 +45,11 @@ const App = () => {
         ).length > 0
 
     //Deletes person
+    const deletePerson = id => {
+        noteServices.remove(id).then(setPersons(persons.filter(person => person.id !== id)))
 
-    const removePersonWithId = (id) => {
-        let deleted = true;
+    }
 
-        noteServices
-            .remove(id)
-            .catch((err) => {
-                console.log(err);
-                deleted = false;
-            })
-            .finally(() => {
-                if (deleted) {
-                    setPersons(persons.filter((p) => p.id !== id));
-                }
-            });
-    };
     return (
         <>
             <h2>Phonebook</h2>
@@ -78,7 +67,7 @@ const App = () => {
             />
             <Persons
                 filteredNames={filteredNames}
-                deletePerson={removePersonWithId}
+                deletePerson={deletePerson}
             />
         </>
     )
